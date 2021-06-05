@@ -1,0 +1,25 @@
+level09
+
+flag09@SnowCrash:~$ getflag
+Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
+
+из вывода понимаем что каждый след символ смещается на +1 +2 итд
+level09@SnowCrash:~$ ./level09 abc
+ace
+
+          $hexdump -C token
+
+00000000  66 34 6b 6d 6d 36 70 7c  3d 82 7f 70 82 6e 83 82  |f4kmm6p|=..p.n..|
+00000010  44 42 83 44 75 7b 7f 8c  89 0a                    |DB.Du{....|
+0000001a
+
+We can write an script to make reverse action of binary file level09. 
+f3iji1ju5yuevaus41q1afiuq￱
+
+$ ./level09 'f3iji1ju5yuevaus41q1afiuq'￱
+f4kmm6p|=�p�n��DB�Du{���
+
+
+Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
+
+

