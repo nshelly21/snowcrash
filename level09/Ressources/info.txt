@@ -1,25 +1,19 @@
 level09
 
-flag09@SnowCrash:~$ getflag
-Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
-
-из вывода понимаем что каждый след символ смещается на +1 +2 итд
+Когда мы выполняем level09, мы понимаем, что строка, переданная как параметр, проходит алгоритм который для каждого символа добавляет его позицию как значение:
 level09@SnowCrash:~$ ./level09 abc
 ace
 
-          $hexdump -C token
+cat -e token
+f4kmm6p|=M-^B^?pM-^BnM-^CM-^BDBM-^CDu{^?M-^LM-^I$
 
+$hexdump -C token
 00000000  66 34 6b 6d 6d 36 70 7c  3d 82 7f 70 82 6e 83 82  |f4kmm6p|=..p.n..|
 00000010  44 42 83 44 75 7b 7f 8c  89 0a                    |DB.Du{....|
 0000001a
 
-We can write an script to make reverse action of binary file level09. 
-f3iji1ju5yuevaus41q1afiuq￱
+Это шестнадцатеричное представление значений ascii (посередине). Мы предполагали, что флаг прошел инкрементный алгоритм, поэтому у нас были такие странные значения. Итак, мы написали небольшой js-скрипт, чтобы расшифровать это и распечатать
 
-$ ./level09 'f3iji1ju5yuevaus41q1afiuq'￱
-f4kmm6p|=�p�n��DB�Du{���
-
+f3iji1ju5yuevaus41q1afiuq￱       password for flag09
 
 Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
-
-

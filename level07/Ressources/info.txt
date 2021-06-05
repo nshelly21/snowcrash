@@ -1,10 +1,9 @@
 level07
 
 $ strings level07
-We see it uses getenv to get the environment variable LOGNAME and print its content with echo.
-We can put a subshell as LOGNAME to execute any command we want:
+
+Он снова имеет бит suid. Когда мы его выполняем, он печатает имя пользователя. При анализе двоичного файла мы видим, что он использует getenv для получения переменной окружения LOGNAME и вывода ее содержимого с помощью echo. Мы можем поместить подоболочку как LOGNAME для выполнения любой команды, которую мы хотим:
 
 LOGNAME="\$(getflag)" ./level07
 
 Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
-

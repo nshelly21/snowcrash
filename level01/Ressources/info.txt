@@ -5,7 +5,9 @@ Info about /etc/passwd:      https://www.cyberciti.biz/faq/where-are-the-passwor
 level01@SnowCrash:~$ cat /etc/passwd | grep 'flag01'
 flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
 
-In this case, the salt is 42 and the hash is hDRfypTqqnw.
+У пользователя flag01 вместо x есть хэш. На этом сайте https://www.oreilly.com/library/view/practical-unix-and/0596003234/ch04s03.html мы узнали, что до файла /etc/shadow пароли были зашифрованы с помощью функции crypto() и сохранены непосредственно в /etc/passwd.Он использует соль на основе 2 символов и создает хэш из 11 символов с помощью алгоритма DES.
+В этом случае 42 это соль, а hDRfypTqqnw хэш.
+для расшифровки мы использовали папку tmp(которая доступна) и john по совету из видео в интре https://elearning.intra.42.fr/notions/snow-crash/subnotions/snow-crash/videos/snow-crash
 
 $ mkdir /tmp/myfs     We don’t have rights, we only can create tmp folder
 $ cd /tmp/myfs        every time this folder is reset by system
@@ -16,7 +18,7 @@ $ cd john-1.7.9-jumbo5-Linux-x86-32/run
 $ # executing john on the etc/passwd file gives us the password because it knows how to break DES
 $ ./john /etc/passwd
 Loaded 1 password hash (Traditional DES [128/128 BS SSE2])
-abcdefg          (flag01)
+abcdefg          (flag01)                        password for flag01
 
 
-Check flag.Here is your token : 
+Check flag.Here is your token : f2av5il02puano7naaf6adaaf
